@@ -38,4 +38,10 @@ public class Orders {
     public LocalDateTime getCreatedOn() {
         return createdOn;
     }
+
+    public float getTotalPrice() {
+        return productRefs.stream()
+                .map(productRef -> productRef.getPrice())
+                .reduce(0f, (x, y) -> x + y);
+    }
 }

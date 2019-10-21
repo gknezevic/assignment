@@ -55,4 +55,17 @@ public class OrdersBuilderTests {
         assertTrue(orders.getProductRefs().size() == 3);
     }
 
+    @Test
+    public void totalProductPriceIsCalculatedInOrdersTest() throws RequiredFieldEmptyException {
+        Orders orders = OrdersBuilder.AOrdersBuilder()
+                .withEmail("fake@mail.com")
+                .withProducts(Arrays.asList(
+                        validProductWithRandomSku().setPrice(1f),
+                        validProductWithRandomSku().setPrice(2.5f),
+                        validProductWithRandomSku().setPrice(0.5f)))
+                .build();
+
+        assertEquals(4f, orders.getTotalPrice());
+    }
+
 }
