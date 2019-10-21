@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class Orders {
 
     @Id
-    private int id;
+    private Integer id;
     private String email;
     private Set<ProductRef> productRefs;
     private LocalDateTime createdOn;
@@ -21,6 +21,10 @@ public class Orders {
         this.productRefs = products.stream().map(product -> new ProductRef(product.getSku(), product.getPrice())).collect(Collectors.toSet());
         this.email = email;
         this.createdOn = LocalDateTime.now();
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getEmail() {
