@@ -1,5 +1,7 @@
 package com.roche.assignment.model;
 
+import com.roche.assignment.model.exceptions.RequiredFieldEmptyException;
+
 import java.util.Optional;
 
 public class ProductBuilder {
@@ -14,10 +16,16 @@ public class ProductBuilder {
         return new ProductBuilder();
     }
 
-    public Product build() {
+    public Product build() throws RequiredFieldEmptyException {
+        validation();
         return skuOpt
                 .map(sku -> new Product(sku, nameOpt.get(), priceOpt.get()))
                 .orElse(new Product(nameOpt.get(), priceOpt.get()));
+    }
+
+    private void validation() throws RequiredFieldEmptyException {
+        nameOpt.orElseThrow(() -> new RequiredFieldEmptyException("Name"));
+        priceOpt.orElseThrow(() -> new RequiredFieldEmptyException("Price"));
     }
 
     public ProductBuilder withSku(String sku) {
