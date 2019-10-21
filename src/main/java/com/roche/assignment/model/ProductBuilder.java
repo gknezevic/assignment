@@ -1,5 +1,6 @@
 package com.roche.assignment.model;
 
+import com.roche.assignment.model.dto.ProductDto;
 import com.roche.assignment.model.exceptions.RequiredFieldEmptyException;
 
 import java.util.Optional;
@@ -14,6 +15,15 @@ public class ProductBuilder {
 
     public static ProductBuilder AProductBuilder() {
         return new ProductBuilder();
+    }
+
+    public static Product ProductFrom(ProductDto productDto) throws RequiredFieldEmptyException {
+        if (productDto == null) throw new RequiredFieldEmptyException("Name and Price");
+        return AProductBuilder()
+                .withSku(productDto.getSku())
+                .withName(productDto.getName())
+                .withPrice(productDto.getPrice())
+                .build();
     }
 
     public Product build() throws RequiredFieldEmptyException {

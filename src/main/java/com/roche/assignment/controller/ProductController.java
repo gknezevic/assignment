@@ -2,10 +2,13 @@ package com.roche.assignment.controller;
 
 import com.roche.assignment.model.dto.ProductDto;
 import com.roche.assignment.model.exceptions.ProductNotFoundException;
+import com.roche.assignment.model.exceptions.RequiredFieldEmptyException;
 import com.roche.assignment.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static com.roche.assignment.model.ProductBuilder.ProductFrom;
 
 @RestController
 @RequestMapping("/product")
@@ -25,7 +28,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity saveProduct(@RequestBody ProductDto productDto) {
-        return null;
+    public ResponseEntity saveProduct(@RequestBody ProductDto productDto) throws RequiredFieldEmptyException {
+        return ResponseEntity.ok(productService.save(ProductFrom(productDto)));
     }
 }
