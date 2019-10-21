@@ -14,7 +14,7 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
-    public Product get(String sku) throws ProductNotFoundException {
+    public Product getBySku(String sku) throws ProductNotFoundException {
         return productRepository.findById(sku).orElseThrow(() -> new ProductNotFoundException(sku));
     }
 
@@ -37,7 +37,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean delete(String sku) {
-        return false;
+    public boolean delete(String sku) throws ProductNotFoundException {
+        return productRepository
+                .findById(sku)
+                .map(product -> product.deleteProduct())
+                .map(product -> productRepository.save(product))
+                .map(product -> product.isDeleted())
+                .orElseThrow(() -> new ProductNotFoundException(sku));
     }
 }

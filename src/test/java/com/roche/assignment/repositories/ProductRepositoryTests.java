@@ -2,7 +2,6 @@ package com.roche.assignment.repositories;
 
 import com.roche.assignment.TestObjects;
 import com.roche.assignment.model.Product;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ public class ProductRepositoryTests {
     }
 
     @Test
-    public void savingValidProductIsSuccessful() {
+    public void savingValidProductIsSuccessfulTest() {
         Product testProduct = TestObjects.validProductWithSku();
         Product savedProduct = productRepository.saveWithCustomSku(testProduct);
         assertNotNull(savedProduct);
@@ -32,7 +31,7 @@ public class ProductRepositoryTests {
     }
 
     @Test
-    public void readingSavedProductIsSuccessful() {
+    public void readingSavedProductIsSuccessfulTest() {
         Product testProduct = TestObjects.validProductWithSku();
         productRepository.saveWithCustomSku(testProduct);
         Optional<Product> savedProductOpt = productRepository.findById(testProduct.getSku());
@@ -41,7 +40,7 @@ public class ProductRepositoryTests {
     }
 
     @Test
-    public void updateSavedProductIsSuccessful() {
+    public void updateSavedProductIsSuccessfulTest() {
         Product testProduct = TestObjects.validProductWithSku();
         productRepository.saveWithCustomSku(testProduct);
 
