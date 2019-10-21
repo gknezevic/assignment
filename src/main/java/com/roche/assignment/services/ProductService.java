@@ -4,6 +4,8 @@ import com.roche.assignment.model.Product;
 import com.roche.assignment.model.exceptions.ProductNotFoundException;
 import com.roche.assignment.model.exceptions.ProductSavingException;
 
+import java.util.List;
+
 public interface ProductService {
 
     Product getBySku(String sku) throws ProductNotFoundException;
@@ -11,4 +13,7 @@ public interface ProductService {
     Product save(Product product) throws ProductSavingException;
     Product update(Product product) throws ProductNotFoundException;
     boolean delete(String sku) throws ProductNotFoundException;
+
+    Iterable<Product> findAllBySku(List<String> skus);
+
 }

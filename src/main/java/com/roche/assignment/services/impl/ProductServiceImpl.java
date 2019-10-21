@@ -8,6 +8,8 @@ import com.roche.assignment.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -45,5 +47,10 @@ public class ProductServiceImpl implements ProductService {
                 .map(product -> productRepository.save(product))
                 .map(product -> product.isDeleted())
                 .orElseThrow(() -> new ProductNotFoundException(sku));
+    }
+
+    @Override
+    public Iterable<Product> findAllBySku(List<String> skus) {
+        return productRepository.findAllById(skus);
     }
 }

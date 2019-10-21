@@ -1,9 +1,15 @@
 package com.roche.assignment.model;
 
+import com.roche.assignment.model.dto.OrdersDto;
+import com.roche.assignment.model.exceptions.ProductNotFoundException;
+import com.roche.assignment.model.exceptions.ProductsAreDeletedException;
 import com.roche.assignment.model.exceptions.RequiredFieldEmptyException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class OrdersBuilder {
 
@@ -14,6 +20,35 @@ public class OrdersBuilder {
 
     public static OrdersBuilder AOrdersBuilder() {
         return new OrdersBuilder();
+    }
+
+    public static Orders OrdersFrom(OrdersDto ordersDto, Function<List<String>, Iterable<Product>> getProducts) throws RequiredFieldEmptyException, ProductsAreDeletedException, ProductNotFoundException {
+        Iterable<Product> products = getProducts.apply(ordersDto.getSkuList());
+        List<Product> productList = validateOrderedProducts(ordersDto.getSkuList(), products);
+        return AOrdersBuilder().withProducts(productList).withEmail(ordersDto.getEmail()).build();
+    }
+
+    private static List<Product> validateOrderedProducts(List<String> skuList, Iterable<Product> products) throws ProductsAreDeletedException, ProductNotFoundException {
+        List<Product> productList = new ArrayList<>(skuList.size());
+        List<Product> deletedProducts = new ArrayList<>();
+        for (Product product : products) {
+            if (product.isDeleted()) {
+                deletedProducts.add(product);
+            } else {
+                productList.add(product);
+            }
+        }
+
+        if (deletedProducts.size() > 0) {
+            throw new ProductsAreDeletedException(String.join(", ", deletedProducts.stream().map(product -> product.getSku()).collect(Collectors.toList())));
+        }
+
+        if (productList.size() < skuList.size()) {
+            skuList.removeAll(productList.stream().map(product -> product.getSku()).collect(Collectors.toList()));
+            throw new ProductNotFoundException(String.join(", ", skuList));
+        }
+
+        return productList;
     }
 
     public Orders build() throws RequiredFieldEmptyException {
