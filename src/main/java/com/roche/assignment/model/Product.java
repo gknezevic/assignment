@@ -12,6 +12,7 @@ public class Product {
     private String name;
     private float price;
     private LocalDateTime createdOn;
+    private boolean deleted;
 
     private Product() {}
 
@@ -50,5 +51,9 @@ public class Product {
     public Product setPrice(float price) {
         this.price = price;
         return this;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
     }
 }

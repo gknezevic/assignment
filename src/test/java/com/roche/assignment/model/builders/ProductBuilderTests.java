@@ -3,8 +3,9 @@ package com.roche.assignment.model.builders;
 import com.roche.assignment.model.Product;
 import com.roche.assignment.model.ProductBuilder;
 import com.roche.assignment.model.exceptions.RequiredFieldEmptyException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ProductBuilderTests {
 
@@ -15,7 +16,7 @@ public class ProductBuilderTests {
                 .withName("Shoes")
                 .withPrice(13.5f)
                 .build();
-        Assertions.assertNotNull(product);
+        assertNotNull(product);
     }
 
     @Test
@@ -24,7 +25,7 @@ public class ProductBuilderTests {
                 .withName("Shoes")
                 .withPrice(13.5f)
                 .build();
-        Assertions.assertNotNull(product);
+        assertNotNull(product);
     }
 
     @Test
@@ -33,7 +34,7 @@ public class ProductBuilderTests {
                 .withName("Shoes")
                 .withPrice(13.5f)
                 .build();
-        Assertions.assertNotNull(product.getSku());
+        assertNotNull(product.getSku());
     }
 
     @Test
@@ -42,7 +43,7 @@ public class ProductBuilderTests {
                 .withSku("xyz-123-rst")
                 .withPrice(13.5f);
 
-        Assertions.assertThrows(RequiredFieldEmptyException.class, () -> productBuilder.build());
+        assertThrows(RequiredFieldEmptyException.class, () -> productBuilder.build());
     }
 
     @Test
@@ -51,7 +52,7 @@ public class ProductBuilderTests {
                 .withSku("xyz-123-rst")
                 .withName("Shoes");
 
-        Assertions.assertThrows(RequiredFieldEmptyException.class, () -> productBuilder.build());
+        assertThrows(RequiredFieldEmptyException.class, () -> productBuilder.build());
     }
 
     @Test
@@ -60,6 +61,15 @@ public class ProductBuilderTests {
                 .withName("Shoes")
                 .withPrice(13.5f)
                 .build();
-        Assertions.assertNotNull(product.getCreatedOn());
+        assertNotNull(product.getCreatedOn());
+    }
+
+    @Test
+    public void createdProductWillHaveDeletedFlagSetToFalseTest() throws RequiredFieldEmptyException {
+        Product product = ProductBuilder.AProductBuilder()
+                .withName("Shoes")
+                .withPrice(13.5f)
+                .build();
+        assertFalse(product.isDeleted());
     }
 }
