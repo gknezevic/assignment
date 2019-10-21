@@ -3,7 +3,6 @@ package com.roche.assignment.services.impl;
 import com.roche.assignment.model.Orders;
 import com.roche.assignment.model.Product;
 import com.roche.assignment.repositories.OrdersRepository;
-import com.roche.assignment.repositories.ProductRepository;
 import com.roche.assignment.services.OrdersService;
 import com.roche.assignment.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public Iterable<Orders> retriveOrders(LocalDateTime startDate, LocalDateTime endDate) {
-        return ordersRepository.findAll();
+        return ordersRepository.retriveOrders(startDate, endDate);
     }
 
     @Override
