@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -67,6 +65,26 @@ public class ProductServiceTests {
     public void updateNonExistingProductWillThrowExceptionTest() {
         Product notSavedProduct = TestObjects.validProductWithSku();
         assertThrows(ProductNotFoundException.class, () -> productService.update(notSavedProduct));
+    }
+
+    @Test
+    public void deleteExistingProductIsSuccessfulTest() throws ProductNotFoundException {
+        Product testProduct = TestObjects.validProductWithSku();
+        productRepository.saveWithCustomSku(testProduct);
+
+        Product savedProduct = productService.getBySku(testProduct.getSku());
+
+        productService.delete(savedProduct.getSku());
+
+        Product deletedProduct = productService.getBySku(savedProduct.getSku());
+
+        assertTrue(deletedProduct.isDeleted());
+    }
+
+    @Test
+    public void deleteNonExistingProductWillThrowExceptionTest() {
+        Product notSavedProduct = TestObjects.validProductWithSku();
+        assertThrows(ProductNotFoundException.class, () -> productService.delete(notSavedProduct.getSku()));
     }
 
 }
