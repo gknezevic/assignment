@@ -18,4 +18,16 @@ public class TestObjects {
             return null;
         }
     }
+
+    public static Product validProductWithRandomSku() {
+        try {
+            return ProductBuilder.AProductBuilder()
+                    .withName("Shoes")
+                    .withPrice(19.99f)
+                    .build();
+        } catch (RequiredFieldEmptyException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
