@@ -20,4 +20,20 @@ public class Product {
         this.price = price;
         this.createdOn = LocalDateTime.now();
     }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
 }

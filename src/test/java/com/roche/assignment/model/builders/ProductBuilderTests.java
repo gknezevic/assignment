@@ -29,6 +29,15 @@ public class ProductBuilderTests {
     }
 
     @Test
+    public void creatingProductWithoutSkuWillSetSkuTest() {
+        Product product = ProductBuilder.AProductBuilder()
+                .withName("Shoes")
+                .withPrice(13.5f)
+                .build();
+        Assertions.assertNotNull(product.getSku());
+    }
+
+    @Test
     public void creatingProductWithoutNameWillFailTest() {
         ProductBuilder productBuilder = ProductBuilder.AProductBuilder()
                 .withSku("xyz-123-rst")
@@ -44,5 +53,14 @@ public class ProductBuilderTests {
                 .withName("Shoes");
 
         Assertions.assertThrows(NoSuchElementException.class, () -> productBuilder.build());
+    }
+
+    @Test
+    public void creatingProductWillSetCreatedDateTest() {
+        Product product = ProductBuilder.AProductBuilder()
+                .withName("Shoes")
+                .withPrice(13.5f)
+                .build();
+        Assertions.assertNotNull(product.getCreatedOn());
     }
 }
