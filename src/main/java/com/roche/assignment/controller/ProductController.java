@@ -32,4 +32,14 @@ public class ProductController {
     public ResponseEntity saveProduct(@RequestBody ProductDto productDto) throws RequiredFieldEmptyException, ProductSavingException {
         return ResponseEntity.ok(productService.save(ProductFrom(productDto)));
     }
+
+    @PutMapping
+    public ResponseEntity updateProduct(@RequestBody ProductDto productDto) throws RequiredFieldEmptyException, ProductNotFoundException {
+        return ResponseEntity.ok(productService.update(ProductFrom(productDto)));
+    }
+
+    @DeleteMapping("/{sku}")
+    public ResponseEntity deleteProduct(@PathVariable String sku) throws ProductNotFoundException {
+        return ResponseEntity.ok(productService.delete(sku));
+    }
 }
