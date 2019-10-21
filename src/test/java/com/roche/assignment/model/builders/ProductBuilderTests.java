@@ -6,8 +6,6 @@ import com.roche.assignment.model.exceptions.RequiredFieldEmptyException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.NoSuchElementException;
-
 public class ProductBuilderTests {
 
     @Test

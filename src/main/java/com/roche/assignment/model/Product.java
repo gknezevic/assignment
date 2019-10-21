@@ -1,10 +1,13 @@
 package com.roche.assignment.model;
 
+import org.springframework.data.annotation.Id;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Product {
 
+    @Id
     private String sku;
     private String name;
     private float price;
