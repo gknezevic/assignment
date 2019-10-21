@@ -2,6 +2,7 @@ package com.roche.assignment.services.impl;
 
 import com.roche.assignment.model.Product;
 import com.roche.assignment.model.exceptions.ProductNotFoundException;
+import com.roche.assignment.model.exceptions.ProductSavingException;
 import com.roche.assignment.repositories.ProductRepository;
 import com.roche.assignment.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product save(Product product) {
+    public Product save(Product product) throws ProductSavingException {
         return productRepository.saveWithCustomSku(product);
     }
 

@@ -3,6 +3,7 @@ package com.roche.assignment.services;
 import com.roche.assignment.TestObjects;
 import com.roche.assignment.model.Product;
 import com.roche.assignment.model.exceptions.ProductNotFoundException;
+import com.roche.assignment.model.exceptions.ProductSavingException;
 import com.roche.assignment.repositories.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,7 @@ public class ProductServiceTests {
     }
 
     @Test
-    public void getSavedProductIsSuccessfulTest() throws ProductNotFoundException {
+    public void getSavedProductIsSuccessfulTest() throws ProductNotFoundException, ProductSavingException {
         Product testProduct = TestObjects.validProductWithSku();
         productRepository.saveWithCustomSku(testProduct);
 
@@ -42,7 +43,7 @@ public class ProductServiceTests {
     }
 
     @Test
-    public void updateSavedProductIsSuccessfulTest() throws ProductNotFoundException {
+    public void updateSavedProductIsSuccessfulTest() throws ProductNotFoundException, ProductSavingException {
         Product testProduct = TestObjects.validProductWithSku();
         productService.save(testProduct);
 
@@ -68,7 +69,7 @@ public class ProductServiceTests {
     }
 
     @Test
-    public void deleteExistingProductIsSuccessfulTest() throws ProductNotFoundException {
+    public void deleteExistingProductIsSuccessfulTest() throws ProductNotFoundException, ProductSavingException {
         Product testProduct = TestObjects.validProductWithSku();
         productRepository.saveWithCustomSku(testProduct);
 
