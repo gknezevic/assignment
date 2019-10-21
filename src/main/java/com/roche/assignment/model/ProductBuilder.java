@@ -19,4 +19,19 @@ public class ProductBuilder {
                 .map(sku -> new Product(sku, nameOpt.get(), priceOpt.get()))
                 .orElse(new Product(nameOpt.get(), priceOpt.get()));
     }
+
+    public ProductBuilder withSku(String sku) {
+        this.skuOpt = Optional.ofNullable(sku);
+        return this;
+    }
+
+    public ProductBuilder withName(String name) {
+        this.nameOpt = Optional.ofNullable(name);
+        return this;
+    }
+
+    public ProductBuilder withPrice(Float price) {
+        this.priceOpt = Optional.ofNullable(price);
+        return this;
+    }
 }
