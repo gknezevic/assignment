@@ -13,6 +13,8 @@ public class Product {
     private float price;
     private LocalDateTime createdOn;
 
+    private Product() {}
+
     Product(String name, float price) {
         this(UUID.randomUUID().toString(), name, price);
     }

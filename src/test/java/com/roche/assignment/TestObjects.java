@@ -6,7 +6,7 @@ import com.roche.assignment.model.exceptions.RequiredFieldEmptyException;
 
 public class TestObjects {
 
-    public static Product validProduct() {
+    public static Product validProductWithSku() {
         try {
             return ProductBuilder.AProductBuilder()
                     .withSku("xyz-123-rst")
