@@ -41,4 +41,14 @@ public class Product {
     public LocalDateTime getCreatedOn() {
         return createdOn;
     }
+
+    public Product setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Product setPrice(float price) {
+        this.price = price;
+        return this;
+    }
 }

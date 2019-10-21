@@ -12,6 +12,14 @@ public class ProductRepositoryImpl implements ProductRepositoryExtension {
     @Autowired
     private JdbcAggregateTemplate template;
 
+    /**
+     *  This method is used instead of @see {@link org.springframework.data.repository.CrudRepository#save(Object)}
+     *  because Spring Data JDBC will try performing Update instead of Insert if Id has non-null value.
+     *  Issue is reported: https://jira.spring.io/browse/DATAJDBC-269
+     *
+     * @param product New {@link Product} to be persisted
+     * @return Persisted entity
+     */
     @Override
     public Product saveWithCustomSku(Product product) {
         return template.insert(product);
