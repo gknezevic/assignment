@@ -1,5 +1,6 @@
 package com.roche.assignment.controller;
 
+import com.roche.assignment.model.exceptions.InvalidArgumentException;
 import com.roche.assignment.model.exceptions.ProductNotFoundException;
 import com.roche.assignment.model.exceptions.ProductSavingException;
 import com.roche.assignment.model.exceptions.RequiredFieldEmptyException;
@@ -26,6 +27,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = RequiredFieldEmptyException.class)
     public void handleRequiredFieldEmptyException(HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.BAD_REQUEST.value());
+    }
+
+    @ExceptionHandler(value = InvalidArgumentException.class)
+    public void handleInvalidArgumentException(HttpServletResponse response) throws IOException {
         response.sendError(HttpStatus.BAD_REQUEST.value());
     }
 

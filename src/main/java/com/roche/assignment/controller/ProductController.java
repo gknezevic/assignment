@@ -1,6 +1,7 @@
 package com.roche.assignment.controller;
 
 import com.roche.assignment.model.dto.ProductDto;
+import com.roche.assignment.model.exceptions.InvalidArgumentException;
 import com.roche.assignment.model.exceptions.ProductNotFoundException;
 import com.roche.assignment.model.exceptions.ProductSavingException;
 import com.roche.assignment.model.exceptions.RequiredFieldEmptyException;
@@ -29,12 +30,12 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity saveProduct(@RequestBody ProductDto productDto) throws RequiredFieldEmptyException, ProductSavingException {
+    public ResponseEntity saveProduct(@RequestBody ProductDto productDto) throws RequiredFieldEmptyException, ProductSavingException, InvalidArgumentException {
         return ResponseEntity.ok(productService.save(ProductFrom(productDto)));
     }
 
     @PutMapping
-    public ResponseEntity updateProduct(@RequestBody ProductDto productDto) throws RequiredFieldEmptyException, ProductNotFoundException {
+    public ResponseEntity updateProduct(@RequestBody ProductDto productDto) throws RequiredFieldEmptyException, ProductNotFoundException, InvalidArgumentException {
         return ResponseEntity.ok(productService.update(ProductFrom(productDto)));
     }
 

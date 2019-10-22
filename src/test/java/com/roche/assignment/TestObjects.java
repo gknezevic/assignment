@@ -2,6 +2,7 @@ package com.roche.assignment;
 
 import com.roche.assignment.model.Product;
 import com.roche.assignment.model.ProductBuilder;
+import com.roche.assignment.model.exceptions.InvalidArgumentException;
 import com.roche.assignment.model.exceptions.RequiredFieldEmptyException;
 
 public class TestObjects {
@@ -13,7 +14,7 @@ public class TestObjects {
                     .withName("Shoes")
                     .withPrice(19.99f)
                     .build();
-        } catch (RequiredFieldEmptyException e) {
+        } catch (RequiredFieldEmptyException | InvalidArgumentException e) {
             e.printStackTrace();
             return null;
         }
@@ -25,7 +26,7 @@ public class TestObjects {
                     .withName("Shoes")
                     .withPrice(19.99f)
                     .build();
-        } catch (RequiredFieldEmptyException e) {
+        } catch (RequiredFieldEmptyException | InvalidArgumentException e) {
             e.printStackTrace();
             return null;
         }

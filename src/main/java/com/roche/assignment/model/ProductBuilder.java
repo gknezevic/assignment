@@ -1,6 +1,7 @@
 package com.roche.assignment.model;
 
 import com.roche.assignment.model.dto.ProductDto;
+import com.roche.assignment.model.exceptions.InvalidArgumentException;
 import com.roche.assignment.model.exceptions.RequiredFieldEmptyException;
 
 import java.util.Optional;
@@ -17,7 +18,7 @@ public class ProductBuilder {
         return new ProductBuilder();
     }
 
-    public static Product ProductFrom(ProductDto productDto) throws RequiredFieldEmptyException {
+    public static Product ProductFrom(ProductDto productDto) throws RequiredFieldEmptyException, InvalidArgumentException {
         if (productDto == null) throw new RequiredFieldEmptyException("Name and Price");
         return AProductBuilder()
                 .withSku(productDto.getSku())
@@ -26,16 +27,17 @@ public class ProductBuilder {
                 .build();
     }
 
-    public Product build() throws RequiredFieldEmptyException {
+    public Product build() throws RequiredFieldEmptyException, InvalidArgumentException {
         validation();
         return skuOpt
                 .map(sku -> new Product(sku, nameOpt.get(), priceOpt.get()))
                 .orElse(new Product(nameOpt.get(), priceOpt.get()));
     }
 
-    private void validation() throws RequiredFieldEmptyException {
+    private void validation() throws RequiredFieldEmptyException, InvalidArgumentException {
         nameOpt.orElseThrow(() -> new RequiredFieldEmptyException("Name"));
         priceOpt.orElseThrow(() -> new RequiredFieldEmptyException("Price"));
+        if (priceOpt.get() <= 0f) throw new InvalidArgumentException("Price must be larger then 0");
     }
 
     public ProductBuilder withSku(String sku) {

@@ -2,6 +2,7 @@ package com.roche.assignment.model.builders;
 
 import com.roche.assignment.model.Product;
 import com.roche.assignment.model.ProductBuilder;
+import com.roche.assignment.model.exceptions.InvalidArgumentException;
 import com.roche.assignment.model.exceptions.RequiredFieldEmptyException;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ProductBuilderTests {
 
     @Test
-    public void creatingProductWithAllFieldsIsSuccessfulTest() throws RequiredFieldEmptyException {
+    public void creatingProductWithAllFieldsIsSuccessfulTest() throws RequiredFieldEmptyException, InvalidArgumentException {
         Product product = ProductBuilder.AProductBuilder()
                 .withSku("xyz-123-rst")
                 .withName("Shoes")
@@ -20,7 +21,7 @@ public class ProductBuilderTests {
     }
 
     @Test
-    public void creatingProductWithoutSkuIsSuccessfulTest() throws RequiredFieldEmptyException {
+    public void creatingProductWithoutSkuIsSuccessfulTest() throws RequiredFieldEmptyException, InvalidArgumentException {
         Product product = ProductBuilder.AProductBuilder()
                 .withName("Shoes")
                 .withPrice(13.5f)
@@ -29,7 +30,7 @@ public class ProductBuilderTests {
     }
 
     @Test
-    public void creatingProductWithoutSkuWillSetSkuTest() throws RequiredFieldEmptyException {
+    public void creatingProductWithoutSkuWillSetSkuTest() throws RequiredFieldEmptyException, InvalidArgumentException {
         Product product = ProductBuilder.AProductBuilder()
                 .withName("Shoes")
                 .withPrice(13.5f)
@@ -56,7 +57,7 @@ public class ProductBuilderTests {
     }
 
     @Test
-    public void creatingProductWillSetCreatedDateTest() throws RequiredFieldEmptyException {
+    public void creatingProductWillSetCreatedDateTest() throws RequiredFieldEmptyException, InvalidArgumentException {
         Product product = ProductBuilder.AProductBuilder()
                 .withName("Shoes")
                 .withPrice(13.5f)
@@ -65,7 +66,7 @@ public class ProductBuilderTests {
     }
 
     @Test
-    public void createdProductWillHaveDeletedFlagSetToFalseTest() throws RequiredFieldEmptyException {
+    public void createdProductWillHaveDeletedFlagSetToFalseTest() throws RequiredFieldEmptyException, InvalidArgumentException {
         Product product = ProductBuilder.AProductBuilder()
                 .withName("Shoes")
                 .withPrice(13.5f)
