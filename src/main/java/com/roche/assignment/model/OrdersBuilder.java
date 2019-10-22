@@ -1,6 +1,7 @@
 package com.roche.assignment.model;
 
 import com.roche.assignment.model.dto.OrdersDto;
+import com.roche.assignment.model.exceptions.InvalidArgumentException;
 import com.roche.assignment.model.exceptions.ProductNotFoundException;
 import com.roche.assignment.model.exceptions.ProductsAreDeletedException;
 import com.roche.assignment.model.exceptions.RequiredFieldEmptyException;
@@ -22,7 +23,7 @@ public class OrdersBuilder {
         return new OrdersBuilder();
     }
 
-    public static Orders OrdersFrom(OrdersDto ordersDto, Function<List<String>, Iterable<Product>> getProducts) throws RequiredFieldEmptyException, ProductsAreDeletedException, ProductNotFoundException {
+    public static Orders OrdersFrom(OrdersDto ordersDto, Function<List<String>, Iterable<Product>> getProducts) throws RequiredFieldEmptyException, ProductsAreDeletedException, ProductNotFoundException, InvalidArgumentException {
         Iterable<Product> products = getProducts.apply(ordersDto.getSkuList());
         List<Product> productList = validateOrderedProducts(ordersDto.getSkuList(), products);
         return AOrdersBuilder().withProducts(productList).withEmail(ordersDto.getEmail()).build();
@@ -51,16 +52,17 @@ public class OrdersBuilder {
         return productList;
     }
 
-    public Orders build() throws RequiredFieldEmptyException {
+    public Orders build() throws RequiredFieldEmptyException, InvalidArgumentException {
         validation();
         return new Orders(productsOpt.get(), emailOpt.get());
     }
 
-    private void validation() throws RequiredFieldEmptyException {
+    private void validation() throws RequiredFieldEmptyException, InvalidArgumentException {
         emailOpt.orElseThrow(() -> new RequiredFieldEmptyException("Email"));
         if (!productsOpt.isPresent() || productsOpt.get().isEmpty()) {
             throw new RequiredFieldEmptyException("Products");
         }
+        if (emailOpt.get().trim().length() == 0) throw new InvalidArgumentException("Email cannot be empty");
     }
 
     public OrdersBuilder withEmail(String email) {

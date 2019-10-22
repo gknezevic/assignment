@@ -2,6 +2,7 @@ package com.roche.assignment.model.builders;
 
 import com.roche.assignment.model.Orders;
 import com.roche.assignment.model.OrdersBuilder;
+import com.roche.assignment.model.exceptions.InvalidArgumentException;
 import com.roche.assignment.model.exceptions.RequiredFieldEmptyException;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class OrdersBuilderTests {
 
     @Test
-    public void creatingOrdersWithAllFieldsIsSuccessfulTest() throws RequiredFieldEmptyException {
+    public void creatingOrdersWithAllFieldsIsSuccessfulTest() throws RequiredFieldEmptyException, InvalidArgumentException {
         Orders orders = OrdersBuilder.AOrdersBuilder()
                 .withEmail("fake@mail.com")
                 .withProducts(Arrays.asList(validProductWithSku()))
@@ -46,7 +47,7 @@ public class OrdersBuilderTests {
     }
 
     @Test
-    public void creatingOrdersWillFillProductRefsTest() throws RequiredFieldEmptyException {
+    public void creatingOrdersWillFillProductRefsTest() throws RequiredFieldEmptyException, InvalidArgumentException {
         Orders orders = OrdersBuilder.AOrdersBuilder()
                 .withEmail("fake@mail.com")
                 .withProducts(Arrays.asList(validProductWithRandomSku(), validProductWithRandomSku(), validProductWithRandomSku()))
@@ -56,7 +57,7 @@ public class OrdersBuilderTests {
     }
 
     @Test
-    public void totalProductPriceIsCalculatedInOrdersTest() throws RequiredFieldEmptyException {
+    public void totalProductPriceIsCalculatedInOrdersTest() throws RequiredFieldEmptyException, InvalidArgumentException {
         Orders orders = OrdersBuilder.AOrdersBuilder()
                 .withEmail("fake@mail.com")
                 .withProducts(Arrays.asList(

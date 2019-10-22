@@ -36,8 +36,14 @@ public class ProductBuilder {
 
     private void validation() throws RequiredFieldEmptyException, InvalidArgumentException {
         nameOpt.orElseThrow(() -> new RequiredFieldEmptyException("Name"));
+        if (nameOpt.get().trim().length() == 0) throw new InvalidArgumentException("Name cannot be empty");
+
         priceOpt.orElseThrow(() -> new RequiredFieldEmptyException("Price"));
         if (priceOpt.get() <= 0f) throw new InvalidArgumentException("Price must be larger then 0");
+
+        if (skuOpt.isPresent() && skuOpt.get().trim().length() == 0) {
+            throw new InvalidArgumentException("SKU cannot be empty string");
+        }
     }
 
     public ProductBuilder withSku(String sku) {

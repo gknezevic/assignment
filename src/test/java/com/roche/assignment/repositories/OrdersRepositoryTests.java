@@ -2,6 +2,7 @@ package com.roche.assignment.repositories;
 
 import com.roche.assignment.model.Orders;
 import com.roche.assignment.model.OrdersBuilder;
+import com.roche.assignment.model.exceptions.InvalidArgumentException;
 import com.roche.assignment.model.exceptions.RequiredFieldEmptyException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,7 @@ public class OrdersRepositoryTests {
     }
 
     @Test
-    public void savingValidOrdersIsSuccessfulTest() throws RequiredFieldEmptyException {
+    public void savingValidOrdersIsSuccessfulTest() throws RequiredFieldEmptyException, InvalidArgumentException {
         Orders orders = OrdersBuilder.AOrdersBuilder()
                 .withEmail("fake@mail.com")
                 .withProducts(Arrays.asList(validProductWithRandomSku(), validProductWithRandomSku(), validProductWithRandomSku()))
@@ -39,7 +40,7 @@ public class OrdersRepositoryTests {
     }
 
     @Test
-    public void readingSavedOrdersIsSuccessfulTest() throws RequiredFieldEmptyException {
+    public void readingSavedOrdersIsSuccessfulTest() throws RequiredFieldEmptyException, InvalidArgumentException {
         Orders orders = OrdersBuilder.AOrdersBuilder()
                 .withEmail("fake@mail.com")
                 .withProducts(Arrays.asList(validProductWithRandomSku(), validProductWithRandomSku(), validProductWithRandomSku()))

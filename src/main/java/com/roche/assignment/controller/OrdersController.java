@@ -2,6 +2,7 @@ package com.roche.assignment.controller;
 
 import com.roche.assignment.model.OrdersBuilder;
 import com.roche.assignment.model.dto.OrdersDto;
+import com.roche.assignment.model.exceptions.InvalidArgumentException;
 import com.roche.assignment.model.exceptions.ProductNotFoundException;
 import com.roche.assignment.model.exceptions.ProductsAreDeletedException;
 import com.roche.assignment.model.exceptions.RequiredFieldEmptyException;
@@ -27,7 +28,7 @@ public class OrdersController {
     }
 
     @PostMapping
-    public ResponseEntity placeOrders(@RequestBody OrdersDto ordersDto) throws RequiredFieldEmptyException, ProductsAreDeletedException, ProductNotFoundException {
+    public ResponseEntity placeOrders(@RequestBody OrdersDto ordersDto) throws RequiredFieldEmptyException, ProductsAreDeletedException, ProductNotFoundException, InvalidArgumentException {
         return ResponseEntity.ok(ordersService.save(OrdersBuilder.OrdersFrom(ordersDto, ordersService.findAllBySku())));
     }
 
