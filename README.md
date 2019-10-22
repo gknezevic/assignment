@@ -17,18 +17,18 @@ If you like to use H2 in File DB, replace application.properties with following 
 
 ### Ceate Product
 
-`curl -X POST \
-  http://localhost:8080/product \
-  -H 'Content-Type: application/json' \
+`curl -X POST
+  http://localhost:8080/product
+  -H 'Content-Type: application/json'
   -d '{
 	"sku" : "1234",
 	"name" : "T-Shirt",
 	"price" : 19.99
 }'`
 
-`curl -X POST \
-  http://localhost:8080/product \
-  -H 'Content-Type: application/json' \
+`curl -X POST
+  http://localhost:8080/product
+  -H 'Content-Type: application/json'
   -d '{
     "sku" : "1234-342",
 	"name" : "Shoes",
@@ -47,9 +47,9 @@ If you like to use H2 in File DB, replace application.properties with following 
 
 ### Update Product
 
-`curl -X PUT \
-   http://localhost:8080/product \
-   -H 'Content-Type: application/json' \
+`curl -X PUT
+   http://localhost:8080/product
+   -H 'Content-Type: application/json'
    -d '{
  	"sku" : "1234",
  	"name" : "T-Shirt size L",
@@ -64,17 +64,17 @@ If you like to use H2 in File DB, replace application.properties with following 
  
  ### Place Order
  
-  `curl -X POST \
-     http://localhost:8080/orders \
-     -H 'Content-Type: application/json' \
+  `curl -X POST
+     http://localhost:8080/orders
+     -H 'Content-Type: application/json'
      -d '{
    	"skuList" : [..., ...., ...],
    	"email" : email
    }'`
  
- `curl -X POST \
-    http://localhost:8080/orders \
-    -H 'Content-Type: application/json' \
+ `curl -X POST
+    http://localhost:8080/orders
+    -H 'Content-Type: application/json'
     -d '{
   	"skuList" : ["1234", "1234-342"],
   	"email" : "some_fake@email.com"
